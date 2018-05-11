@@ -1,0 +1,29 @@
+{
+  "name": "reactclient",
+  "version": "1.0.0",
+  "description": "The basic react client side of the single page app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "bomo",
+  "license": "ISC",
+  "devDependencies": {
+    "awesome-typescript-loader": "^5.0.0",
+    "css-loader": "^0.28.11",
+    "sass-loader": "^6.0.7",
+    "source-map-loader": "^0.2.3",
+    "typescript": "^2.8.1",
+    "typings-for-css-modules-loader": "^1.7.0",
+    "webpack-cli": "^2.0.14"
+  },
+  "dependencies": {
+    "@types/react": "^16.3.5",
+    "@types/react-dom": "^16.0.4",
+    "node-sass": "^4.8.3",
+    "react": "^16.3.1",
+    "react-dom": "^16.3.1",
+    "style-loader": "^0.20.3",
+    "webpack": "^4.5.0"
+  }
+}
