@@ -50,7 +50,7 @@ export class Work extends React.Component<WorkProps, WorkState>{
         this.da = new DataAccess('http://10.10.1.31:5000/api/');
         this.da.getHistoricRuns().then((runs: HistoryRunDAO[]) => {
             this.setState({
-                historicResults: runs
+                historicResults: runs.reverse()
             });
         });
     }
@@ -167,7 +167,7 @@ export class Work extends React.Component<WorkProps, WorkState>{
                 window.clearInterval(this.interval);
                 this.da.getHistoricRuns().then((runs: HistoryRunDAO[]) => {
                     this.setState({
-                        historicResults: runs,
+                        historicResults: runs.reverse(),
                         pendingRun: false
                     });
                 });

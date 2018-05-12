@@ -20231,7 +20231,7 @@ var Work = /** @class */ (function (_super) {
         _this.da = new DataAccess_1.default('http://10.10.1.31:5000/api/');
         _this.da.getHistoricRuns().then(function (runs) {
             _this.setState({
-                historicResults: runs
+                historicResults: runs.reverse()
             });
         });
         return _this;
@@ -20330,7 +20330,7 @@ var Work = /** @class */ (function (_super) {
                 window.clearInterval(_this.interval);
                 _this.da.getHistoricRuns().then(function (runs) {
                     _this.setState({
-                        historicResults: runs,
+                        historicResults: runs.reverse(),
                         pendingRun: false
                     });
                 });
