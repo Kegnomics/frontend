@@ -1,3 +1,26 @@
 .smtn {
     width: 100%;
 }
+
+.nameSpan {
+    cursor: pointer;
+    color: #2f4f4f;
+}
+
+.detailsSpan {
+    padding: 5px;
+    font-size: 16px;
+}
+
+.dateSpan {
+    font-size: 12px;
+    color: #808080;
+}
+
+.historyRun {
+    width: 100%;
+}
+
+.historyContainer {
+    border-left: 5px solid #2f4f4f;
+}

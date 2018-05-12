@@ -48,7 +48,7 @@ export class Work extends React.Component<WorkProps, WorkState>{
         this.da = new DataAccess('http://10.10.1.31:5000/api/');
         this.da.getHistoricRuns().then((runs: HistoryRunDAO[]) => {
             this.setState({
-                historicResults: runs
+                historicResults: runs.filter((run: HistoryRunDAO) => {return run.done === 1})
             });
         });
     }
@@ -61,9 +61,9 @@ export class Work extends React.Component<WorkProps, WorkState>{
                 <div className={!this.state.showResults ? style.button : style.button + ' ' + style.selected } onClick={this.showResults.bind(this)}>history</div>
             </div>
             <div className={style.workContainer + ' ' + (this.state.showResults ? style.hidden : style.visible)} >
-                <p>What's the suspected illness? keywords? marks?</p>
+                <p>what's the suspected illness? keywords? marks?</p>
                 <input className={style.keywordInput} type='text' onChange={this.onKeywordInputChange.bind(this)} />
-                <p>Transmission model</p>
+                <p>transmission model</p>
                 <select className={style.keywordInput} onChange={this.transmissionChange.bind(this)}>
                     <option>Heterozygous</option>
                     <option>Homozygous</option>
@@ -73,7 +73,7 @@ export class Work extends React.Component<WorkProps, WorkState>{
                     <div className={style.fileUploadOverlay}>click to upload file</div>
                     <input className={style.fileUploadControl} type='file' onChange={this.onFileUploaded.bind(this)} />
                 </div>
-                <p>Name your run:</p>
+                <p>name your run:</p>
                 <input className={style.keywordInput} type='text' onChange={this.runNameChanged.bind(this)} />
                 <div>
                     <div className={style.submitButton} onClick={this.onSubmit.bind(this)}>submit</div>
@@ -81,8 +81,8 @@ export class Work extends React.Component<WorkProps, WorkState>{
                 </div>
             </div>
             <div className={this.state.showResults ? style.visible : style.hidden}>
-                <div>a list of historic runs</div>
-                {this.state.historicResults.map((result: HistoryRunDAO) => {
+            <h4>previous runs:</h4>
+                {this.state.historicResults.reverse().map((result: HistoryRunDAO) => {
                     return <HistoryRun key={result.runId} clickHandler={this.selectRun.bind(this)} data={result} />   
                 })}
                 {this.state.selectedRun ? <RunDetails run={this.state.selectedRun} /> : ''}

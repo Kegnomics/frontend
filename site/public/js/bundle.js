@@ -19688,11 +19688,16 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "._3H8YDT3TVx9l4v5H3O8DR9 {\n  width: 100%; }\n", ""]);
+exports.push([module.i, "._3H8YDT3TVx9l4v5H3O8DR9 {\n  width: 100%; }\n\n._1YiWs_kKe-iPjw_268FNzz {\n  cursor: pointer;\n  color: #2f4f4f; }\n\n._3KaRwNOgHtTImkG46ARUfQ {\n  padding: 5px;\n  font-size: 16px; }\n\n._1gvPbChxViCT7d3HkpsvtY {\n  font-size: 12px;\n  color: #808080; }\n\n._2aWpxtYl7RMveIealMLXb5 {\n  width: 100%; }\n\n._2JNRc9LedOzmIUmTigJo_H {\n  border-left: 5px solid #2f4f4f; }\n", ""]);
 
 // exports
 exports.locals = {
-	"smtn": "_3H8YDT3TVx9l4v5H3O8DR9"
+	"smtn": "_3H8YDT3TVx9l4v5H3O8DR9",
+	"nameSpan": "_1YiWs_kKe-iPjw_268FNzz",
+	"detailsSpan": "_3KaRwNOgHtTImkG46ARUfQ",
+	"dateSpan": "_1gvPbChxViCT7d3HkpsvtY",
+	"historyRun": "_2aWpxtYl7RMveIealMLXb5",
+	"historyContainer": "_2JNRc9LedOzmIUmTigJo_H"
 };
 
 /***/ }),
@@ -19772,10 +19777,11 @@ var DataAccess = /** @class */ (function () {
         }).then(function (rawJson) {
             return rawJson.results.map(function (data) {
                 return {
+                    done: data.done,
                     runId: data.id,
-                    keywords: 'smtn',
                     submissionTime: data.timestamp,
-                    variants: data.variants
+                    variants: data.variants,
+                    runname: data.runname
                 };
             });
         });
@@ -20032,12 +20038,11 @@ var HistoryRun = /** @class */ (function (_super) {
     }
     HistoryRun.prototype.render = function () {
         var _this = this;
-        return React.createElement("div", { className: style.smtn, onClick: function () { _this.props.clickHandler(_this.props.data.runId); } },
-            this.props.data.runId,
-            "|",
-            this.props.data.keywords,
-            "|",
-            this.props.data.submissionTime);
+        return React.createElement("div", { className: style.smtn },
+            React.createElement("div", { className: style.historyContainer },
+                React.createElement("span", { className: style.detailsSpan }, this.props.data.runId),
+                React.createElement("span", { className: style.nameSpan + ' ' + style.detailsSpan, onClick: function () { _this.props.clickHandler(_this.props.data.runId); } }, this.props.data.runname),
+                React.createElement("p", { className: style.dateSpan }, this.props.data.submissionTime)));
     };
     return HistoryRun;
 }(React.Component));
@@ -20201,7 +20206,7 @@ var Work = /** @class */ (function (_super) {
         _this.da = new DataAccess_1.default('http://10.10.1.31:5000/api/');
         _this.da.getHistoricRuns().then(function (runs) {
             _this.setState({
-                historicResults: runs
+                historicResults: runs.filter(function (run) { return run.done === 1; })
             });
         });
         return _this;
@@ -20213,9 +20218,9 @@ var Work = /** @class */ (function (_super) {
                 React.createElement("div", { className: this.state.showResults ? style.button : style.button + ' ' + style.selected, onClick: this.showNewRun.bind(this) }, "run"),
                 React.createElement("div", { className: !this.state.showResults ? style.button : style.button + ' ' + style.selected, onClick: this.showResults.bind(this) }, "history")),
             React.createElement("div", { className: style.workContainer + ' ' + (this.state.showResults ? style.hidden : style.visible) },
-                React.createElement("p", null, "What's the suspected illness? keywords? marks?"),
+                React.createElement("p", null, "what's the suspected illness? keywords? marks?"),
                 React.createElement("input", { className: style.keywordInput, type: 'text', onChange: this.onKeywordInputChange.bind(this) }),
-                React.createElement("p", null, "Transmission model"),
+                React.createElement("p", null, "transmission model"),
                 React.createElement("select", { className: style.keywordInput, onChange: this.transmissionChange.bind(this) },
                     React.createElement("option", null, "Heterozygous"),
                     React.createElement("option", null, "Homozygous")),
@@ -20223,14 +20228,14 @@ var Work = /** @class */ (function (_super) {
                 React.createElement("div", { className: style.fileUpload },
                     React.createElement("div", { className: style.fileUploadOverlay }, "click to upload file"),
                     React.createElement("input", { className: style.fileUploadControl, type: 'file', onChange: this.onFileUploaded.bind(this) })),
-                React.createElement("p", null, "Name your run:"),
+                React.createElement("p", null, "name your run:"),
                 React.createElement("input", { className: style.keywordInput, type: 'text', onChange: this.runNameChanged.bind(this) }),
                 React.createElement("div", null,
                     React.createElement("div", { className: style.submitButton, onClick: this.onSubmit.bind(this) }, "submit"),
                     React.createElement("img", { className: style.spinner + ' ' + (this.state.isWorking ? style.visibleInline : style.hidden), src: 'http://localhost:8080/loading_spinner.gif' }))),
             React.createElement("div", { className: this.state.showResults ? style.visible : style.hidden },
-                React.createElement("div", null, "a list of historic runs"),
-                this.state.historicResults.map(function (result) {
+                React.createElement("h4", null, "previous runs:"),
+                this.state.historicResults.reverse().map(function (result) {
                     return React.createElement(HistoryRun_1.HistoryRun, { key: result.runId, clickHandler: _this.selectRun.bind(_this), data: result });
                 }),
                 this.state.selectedRun ? React.createElement(RunDetails_1.RunDetails, { run: this.state.selectedRun }) : ''));

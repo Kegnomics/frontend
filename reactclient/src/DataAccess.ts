@@ -10,10 +10,11 @@ export interface VariantDAO {
 }
 
 export interface HistoryRunDAO {
+    done: number;
     runId: number;
-    keywords: string;
     submissionTime: string;
     variants: VariantDAO[];
+    runname: string;
 }
 
 export interface GenericServerData {
@@ -34,10 +35,11 @@ export default class DataAccess {
         }).then((rawJson: GenericServerData) => {
             return rawJson.results.map((data: any) => {
                 return {
+                    done: data.done,
                     runId: data.id,
-                    keywords: 'smtn',
                     submissionTime: data.timestamp,
-                    variants: data.variants
+                    variants: data.variants,
+                    runname: data.runname
                 };
             });
         });
