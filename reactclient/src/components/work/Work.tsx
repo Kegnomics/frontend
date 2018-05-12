@@ -2,9 +2,10 @@ import * as React from 'react';
 import * as style from './Work.scss';
 import DataAccess, { HistoryRunDAO } from '../../DataAccess';
 import { HistoryRun } from '../historyRun/HistoryRun';
+import { RunDetails } from '../runDetails/RunDetails';
 
 export interface FileSubmissionData {
-    runId: number;
+    job_id: number;
 }
 
 export enum Transmission {
@@ -22,11 +23,15 @@ export interface WorkState {
     uploadedFile: File;
     showResults: boolean;
     historicResults: HistoryRunDAO[];
+    selectedRun: HistoryRunDAO;
+    runName: string;
+    isWorking: boolean;
 }
 
 export class Work extends React.Component<WorkProps, WorkState>{
 
     private da: DataAccess;
+    private interval: number;
 
     constructor(props: WorkProps) {
         super(props);
@@ -35,9 +40,12 @@ export class Work extends React.Component<WorkProps, WorkState>{
             transmission: Transmission.Heterozygous, 
             uploadedFile: null,
             showResults: false,
-            historicResults: []
+            historicResults: [],
+            selectedRun: null,
+            runName: '',
+            isWorking: false
         };
-        this.da = new DataAccess('http://35.234.120.86:5000/api/');
+        this.da = new DataAccess('http://10.10.1.31:5000/api/');
         this.da.getHistoricRuns().then((runs: HistoryRunDAO[]) => {
             this.setState({
                 historicResults: runs
@@ -46,26 +54,38 @@ export class Work extends React.Component<WorkProps, WorkState>{
     }
 
     public render() {
+
         return <div className={style.container}>
-            <button type='button' onClick={this.toggleResults.bind(this)} >{this.state.showResults ? 'new run' : 'results'}</button>
-            <div className={this.state.showResults ? style.hidden : style.visible} >
+            <div>
+                <div className={this.state.showResults ? style.button : style.button + ' ' + style.selected } onClick={this.showNewRun.bind(this)}>run</div>
+                <div className={!this.state.showResults ? style.button : style.button + ' ' + style.selected } onClick={this.showResults.bind(this)}>history</div>
+            </div>
+            <div className={style.workContainer + ' ' + (this.state.showResults ? style.hidden : style.visible)} >
                 <p>What's the suspected illness? keywords? marks?</p>
-                <input className={style.maxWidth} type='text' onChange={this.onKeywordInputChange.bind(this)} />
+                <input className={style.keywordInput} type='text' onChange={this.onKeywordInputChange.bind(this)} />
                 <p>Transmission model</p>
-                <select className={style.maxWidth} onChange={this.transmissionChange.bind(this)}>
+                <select className={style.keywordInput} onChange={this.transmissionChange.bind(this)}>
                     <option>Heterozygous</option>
                     <option>Homozygous</option>
                 </select>
                 <p>VCF upload:</p>
-                <input className={style.maxWidth} type='file' onChange={this.onFileUploaded.bind(this)} />
-                <input type='button' value='submit query' onClick={this.onSubmit.bind(this)}/>
+                <div className={style.fileUpload}>
+                    <div className={style.fileUploadOverlay}>click to upload file</div>
+                    <input className={style.fileUploadControl} type='file' onChange={this.onFileUploaded.bind(this)} />
+                </div>
+                <p>Name your run:</p>
+                <input className={style.keywordInput} type='text' onChange={this.runNameChanged.bind(this)} />
+                <div>
+                    <div className={style.submitButton} onClick={this.onSubmit.bind(this)}>submit</div>
+                    <img className={ style.spinner + ' ' + (this.state.isWorking ? style.visibleInline : style.hidden)} src='http://localhost:8080/loading_spinner.gif'/>
+                </div>
             </div>
             <div className={this.state.showResults ? style.visible : style.hidden}>
                 <div>a list of historic runs</div>
                 {this.state.historicResults.map((result: HistoryRunDAO) => {
-                    return <HistoryRun key={result.runId} data={result} />   
+                    return <HistoryRun key={result.runId} clickHandler={this.selectRun.bind(this)} data={result} />   
                 })}
-                <div>details about a chosen run</div>
+                {this.state.selectedRun ? <RunDetails run={this.state.selectedRun} /> : ''}
             </div>
         </div>
     }
@@ -92,20 +112,53 @@ export class Work extends React.Component<WorkProps, WorkState>{
         });
     }
 
-    private onSubmit(): void {
-        // this.da.getArticles(this.state.keywords);
-        this.da.uploadStuff(this.state.uploadedFile, this.state.keywords).then((data: FileSubmissionData)=> {
-            // add a new pending run
-            // go to the details tab
-            this.setState({
-                showResults: true
-            })
+    private runNameChanged(e: any): void {
+        this.setState({
+            runName: e.target.value
         });
     }
 
-    private toggleResults(): void {
+    private onSubmit(): void {
         this.setState({
-            showResults : !this.state.showResults
+            isWorking: true
+        });
+        this.da.uploadStuff(this.state.uploadedFile, this.state.keywords, this.state.runName).then((data: FileSubmissionData)=> {
+            this.interval = window.setInterval(() => {this.pollForJobDone(data.job_id)}, 10000);
+            this.setState({
+                isWorking: false,
+                showResults: true
+            });
+        });
+    }
+
+    private showResults(): void {
+        this.setState({
+            showResults: true
+        });
+    }
+
+    private showNewRun(): void {
+        this.setState({
+            showResults: false
+        });
+    }
+
+    private selectRun(runId: number): void {
+        this.setState({
+            selectedRun: this.state.historicResults.filter((run: HistoryRunDAO) => { return run.runId == runId})[0]
+        });
+    }
+
+    private pollForJobDone(runId: number): void {
+        this.da.pollForJobDone(runId).then((theJson) => {
+            if(theJson.done === 1) {
+                window.clearInterval(this.interval);
+                this.da.getHistoricRuns().then((runs: HistoryRunDAO[]) => {
+                    this.setState({
+                        historicResults: runs
+                    });
+                });
+            }
         });
     }
 }

@@ -53,9 +53,19 @@ export default class DataAccess {
         });
     }
 
-    public uploadStuff(file: File, keywords: string): Promise<any> {
+    public pollForJobDone(runId: number): Promise<any> {
+        let url: string = this.apiRoot + 'jobs?user_id=123&job_id='+ runId;
+        return fetch(url).then((response) => {
+            return response.json();
+        }).then((theJson) => {
+            return theJson.job;
+        });
+    }
+
+    public uploadStuff(file: File, keywords: string, runName: string): Promise<any> {
         let formData: FormData = new FormData();
         formData.append('user_id', '123');
+        formData.append('runName', runName);
         formData.append('vcf', file);
         formData.append('keywords', JSON.stringify(this.formKeywordArray(keywords)));
         let xhr: XMLHttpRequest = new XMLHttpRequest();
