@@ -4,3 +4,6 @@ export const detailsSpan: string;
 export const dateSpan: string;
 export const historyRun: string;
 export const historyContainer: string;
+export const historyContainerDone: string;
+export const historyContainerPending: string;
+export const isSelected: string;

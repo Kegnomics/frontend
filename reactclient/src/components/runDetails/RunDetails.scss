@@ -1,3 +1,51 @@
 .details {
     width: 100%;
+    display: flex;
+}
+
+.articleContainer {
+    width: 30%;
+    display: inline-block;
+}
+
+.variantContainer {
+    width: 70%;
+    display: inline-block;
+}
+
+.abstract {
+    max-height: 80px;
+    overflow: hidden;
+    font-size: 12px;
+}
+
+.variantContainer {
+    width: 100%;
+}
+
+.identification {
+    width: 30%;
+    display: inline-block;
+}
+
+.prediction {
+    width: 30%;
+    display: inline-block;
+}
+
+@media (max-width: 768px) {
+    .details {
+        width: 100%;
+        display: block;
+    }
+
+    .articleContainer {
+        width: 100%;
+        display: inline-block;
+    }
+
+    .variantContainer {
+        width: 100%;
+        display: inline-block;
+    }
 }

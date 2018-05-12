@@ -9,12 +9,19 @@ export interface VariantDAO {
     sift: number;
 }
 
+export interface PublicationDAO {
+    abstract: string;
+    id: number;
+    url: string;
+}
+
 export interface HistoryRunDAO {
     done: number;
     runId: number;
     submissionTime: string;
     variants: VariantDAO[];
     runname: string;
+    publications: PublicationDAO[]; 
 }
 
 export interface GenericServerData {
@@ -39,7 +46,8 @@ export default class DataAccess {
                     runId: data.id,
                     submissionTime: data.timestamp,
                     variants: data.variants,
-                    runname: data.runname
+                    runname: data.runname,
+                    publications: data.pubmedarticles
                 };
             });
         });
