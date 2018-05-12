@@ -691,6 +691,27 @@ exports.locals = {
 
 /***/ }),
 
+/***/ "./node_modules/typings-for-css-modules-loader/lib/index.js??ref--6-1!./node_modules/sass-loader/lib/loader.js!./src/components/historyRun/HistoryRun.scss":
+/*!********************************************************************************************************************************************************!*\
+  !*** ./node_modules/typings-for-css-modules-loader/lib??ref--6-1!./node_modules/sass-loader/lib/loader.js!./src/components/historyRun/HistoryRun.scss ***!
+  \********************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "._3H8YDT3TVx9l4v5H3O8DR9 {\n  width: 100%; }\n", ""]);
+
+// exports
+exports.locals = {
+	"smtn": "_3H8YDT3TVx9l4v5H3O8DR9"
+};
+
+/***/ }),
+
 /***/ "./node_modules/typings-for-css-modules-loader/lib/index.js??ref--6-1!./node_modules/sass-loader/lib/loader.js!./src/components/work/Work.scss":
 /*!********************************************************************************************************************************************!*\
   !*** ./node_modules/typings-for-css-modules-loader/lib??ref--6-1!./node_modules/sass-loader/lib/loader.js!./src/components/work/Work.scss ***!
@@ -703,13 +724,15 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".rARvUsGRhuV89Dci3ebWK {\n  width: 100%; }\n\n._2_z-7RZsXXTYY22A_quwdv {\n  border: none;\n  background-color: #ececec;\n  color: #000; }\n\n.yIC3gmVv8bC4zRePNKK0C {\n  width: 100%; }\n", ""]);
+exports.push([module.i, ".rARvUsGRhuV89Dci3ebWK {\n  width: 100%; }\n\n._2_z-7RZsXXTYY22A_quwdv {\n  border: none;\n  background-color: #ececec;\n  color: #000; }\n\n.yIC3gmVv8bC4zRePNKK0C {\n  width: 100%; }\n\n._3bT6kvkfPlrlSDvASO9NXj {\n  display: block; }\n\n._30Mjq025qLLVNTNUtt5MIa {\n  display: none; }\n", ""]);
 
 // exports
 exports.locals = {
 	"container": "rARvUsGRhuV89Dci3ebWK",
 	"button": "_2_z-7RZsXXTYY22A_quwdv",
-	"maxWidth": "yIC3gmVv8bC4zRePNKK0C"
+	"maxWidth": "yIC3gmVv8bC4zRePNKK0C",
+	"visible": "_3bT6kvkfPlrlSDvASO9NXj",
+	"hidden": "_30Mjq025qLLVNTNUtt5MIa"
 };
 
 /***/ }),
@@ -728,7 +751,45 @@ var DataAccess = /** @class */ (function () {
     function DataAccess(apiRoot) {
         this.apiRoot = apiRoot;
     }
-    DataAccess.prototype.uploadFile = function (file) {
+    DataAccess.prototype.getHistoricRuns = function () {
+        var url = this.apiRoot + 'jobs?user_id=123';
+        return fetch(url).then(function (response) {
+            return response.json();
+        }).then(function (rawJson) {
+            return rawJson.results.map(function (data) {
+                return {
+                    runId: data.id,
+                    keywords: 'smtn',
+                    submissionTime: data.timestamp,
+                    variants: data.variants
+                };
+            });
+        });
+    };
+    DataAccess.prototype.getArticles = function (keywords) {
+        var commaSeparatedKeywords = this.formKeywordArray(keywords).join(',');
+        var url = this.apiRoot + 'pubmed?keywords=' + commaSeparatedKeywords + '&maxres=2';
+        return fetch(url).then(function (response) {
+            return response.json();
+        }).then(function (theJson) {
+        });
+    };
+    DataAccess.prototype.uploadStuff = function (file, keywords) {
+        var formData = new FormData();
+        formData.append('user_id', '123');
+        formData.append('vcf', file);
+        formData.append('keywords', JSON.stringify(this.formKeywordArray(keywords)));
+        var xhr = new XMLHttpRequest();
+        return fetch(this.apiRoot + 'upload', {
+            method: 'POST',
+            body: formData
+        }).then(function (response) {
+            return response.json();
+        });
+    };
+    DataAccess.prototype.formKeywordArray = function (keywords) {
+        var array = keywords.split(' ');
+        return array;
     };
     return DataAccess;
 }());
@@ -889,6 +950,78 @@ exports.FeatureBlock = FeatureBlock;
 
 /***/ }),
 
+/***/ "./src/components/historyRun/HistoryRun.scss":
+/*!***************************************************!*\
+  !*** ./src/components/historyRun/HistoryRun.scss ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../node_modules/typings-for-css-modules-loader/lib??ref--6-1!../../../node_modules/sass-loader/lib/loader.js!./HistoryRun.scss */ "./node_modules/typings-for-css-modules-loader/lib/index.js??ref--6-1!./node_modules/sass-loader/lib/loader.js!./src/components/historyRun/HistoryRun.scss");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./src/components/historyRun/HistoryRun.tsx":
+/*!**************************************************!*\
+  !*** ./src/components/historyRun/HistoryRun.tsx ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(/*! react */ "react");
+var style = __webpack_require__(/*! ./HistoryRun.scss */ "./src/components/historyRun/HistoryRun.scss");
+var HistoryRun = /** @class */ (function (_super) {
+    __extends(HistoryRun, _super);
+    function HistoryRun() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    HistoryRun.prototype.render = function () {
+        return React.createElement("div", { className: style.smtn },
+            this.props.data.runId,
+            "|",
+            this.props.data.keywords,
+            "|",
+            this.props.data.submissionTime);
+    };
+    return HistoryRun;
+}(React.Component));
+exports.HistoryRun = HistoryRun;
+
+
+/***/ }),
+
 /***/ "./src/components/work/Work.scss":
 /*!***************************************!*\
   !*** ./src/components/work/Work.scss ***!
@@ -942,6 +1075,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "react");
 var style = __webpack_require__(/*! ./Work.scss */ "./src/components/work/Work.scss");
 var DataAccess_1 = __webpack_require__(/*! ../../DataAccess */ "./src/DataAccess.ts");
+var HistoryRun_1 = __webpack_require__(/*! ../historyRun/HistoryRun */ "./src/components/historyRun/HistoryRun.tsx");
 var Transmission;
 (function (Transmission) {
     Transmission[Transmission["Heterozygous"] = 0] = "Heterozygous";
@@ -954,22 +1088,37 @@ var Work = /** @class */ (function (_super) {
         _this.state = {
             keywords: '',
             transmission: Transmission.Heterozygous,
-            uploadedFile: null
+            uploadedFile: null,
+            showResults: false,
+            historicResults: []
         };
-        _this.da = new DataAccess_1.default('localhost');
+        _this.da = new DataAccess_1.default('http://35.234.120.86:5000/api/');
+        _this.da.getHistoricRuns().then(function (runs) {
+            _this.setState({
+                historicResults: runs
+            });
+        });
         return _this;
     }
     Work.prototype.render = function () {
         return React.createElement("div", { className: style.container },
-            React.createElement("p", null, "What's the suspected illness? keywords? marks?"),
-            React.createElement("input", { className: style.maxWidth, type: 'text', onChange: this.onKeywordInputChange.bind(this) }),
-            React.createElement("p", null, "Transmission model"),
-            React.createElement("select", { className: style.maxWidth, onChange: this.transmissionChange.bind(this) },
-                React.createElement("option", null, "Heterozygous"),
-                React.createElement("option", null, "Homozygous")),
-            React.createElement("p", null, "VCF upload:"),
-            React.createElement("input", { className: style.maxWidth, type: 'file', onChange: this.onFileUploaded.bind(this) }),
-            React.createElement("input", { type: 'button', value: 'submit query', onClick: this.onSubmit.bind(this) }));
+            React.createElement("button", { type: 'button', onClick: this.toggleResults.bind(this) }, this.state.showResults ? 'new run' : 'results'),
+            React.createElement("div", { className: this.state.showResults ? style.hidden : style.visible },
+                React.createElement("p", null, "What's the suspected illness? keywords? marks?"),
+                React.createElement("input", { className: style.maxWidth, type: 'text', onChange: this.onKeywordInputChange.bind(this) }),
+                React.createElement("p", null, "Transmission model"),
+                React.createElement("select", { className: style.maxWidth, onChange: this.transmissionChange.bind(this) },
+                    React.createElement("option", null, "Heterozygous"),
+                    React.createElement("option", null, "Homozygous")),
+                React.createElement("p", null, "VCF upload:"),
+                React.createElement("input", { className: style.maxWidth, type: 'file', onChange: this.onFileUploaded.bind(this) }),
+                React.createElement("input", { type: 'button', value: 'submit query', onClick: this.onSubmit.bind(this) })),
+            React.createElement("div", { className: this.state.showResults ? style.visible : style.hidden },
+                React.createElement("div", null, "a list of historic runs"),
+                this.state.historicResults.map(function (result) {
+                    return React.createElement(HistoryRun_1.HistoryRun, { key: result.runId, data: result });
+                }),
+                React.createElement("div", null, "details about a chosen run")));
     };
     Work.prototype.onKeywordInputChange = function (e) {
         this.setState({
@@ -990,7 +1139,20 @@ var Work = /** @class */ (function (_super) {
         });
     };
     Work.prototype.onSubmit = function () {
-        this.da.uploadFile(this.state.uploadedFile);
+        var _this = this;
+        // this.da.getArticles(this.state.keywords);
+        this.da.uploadStuff(this.state.uploadedFile, this.state.keywords).then(function (data) {
+            // add a new pending run
+            // go to the details tab
+            _this.setState({
+                showResults: true
+            });
+        });
+    };
+    Work.prototype.toggleResults = function () {
+        this.setState({
+            showResults: !this.state.showResults
+        });
     };
     return Work;
 }(React.Component));
