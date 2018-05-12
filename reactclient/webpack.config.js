@@ -4,7 +4,7 @@ module.exports = {
     entry: "./src/index.tsx",
     output: {
         filename: "bundle.js",
-        path: __dirname + "/../hackathon-starter/public/js"
+        path: __dirname + "/../site/public/js"
     },
 
     // Enable sourcemaps for debugging webpack's output.

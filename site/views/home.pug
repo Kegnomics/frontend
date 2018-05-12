@@ -1,7 +1,12 @@
 extends layout
 
 block content
-  h1 Variant anotation stuff
+  if !user
+    script.
+      window.isLoggedIn = false;
+  else
+    script.
+      window.isLoggedIn = true;
   p <div id="example"></div>
   p <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
   p <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>

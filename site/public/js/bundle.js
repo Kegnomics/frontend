@@ -657,12 +657,83 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 
 // module
-exports.push([module.i, "._1ABG9oQSCccGAl9yU3B82- {\n  color: red;\n  background-color: blue; }\n", ""]);
+exports.push([module.i, "._1ABG9oQSCccGAl9yU3B82- {\n  color: black; }\n\n._2v7q3bQP6zB4I0oEG57JZV {\n  background-color: #001155;\n  width: calc(100% + 30px);\n  height: 300px;\n  margin: -20px -15px 0 -15px;\n  background-image: url(\"http://localhost:8080/preview.jpg\");\n  background-size: cover;\n  position: relative; }\n\n._1sCVO-0DNxMjpuNVQ7p9Cg {\n  position: absolute;\n  bottom: 0;\n  left: 10px; }\n\n.HQ2LBg2Mb0WAtxsS90KC6 {\n  display: inline-block;\n  width: 100%;\n  margin-top: 20px; }\n\n._3A8zI4nCccE-K4ecRf0n9P {\n  width: 100%;\n  display: block; }\n\n@media (max-width: 550px) {\n  ._2v7q3bQP6zB4I0oEG57JZV {\n    height: 150px; } }\n", ""]);
 
 // exports
 exports.locals = {
-	"stuff": "_1ABG9oQSCccGAl9yU3B82-"
+	"stuff": "_1ABG9oQSCccGAl9yU3B82-",
+	"landing": "_2v7q3bQP6zB4I0oEG57JZV",
+	"title": "_1sCVO-0DNxMjpuNVQ7p9Cg",
+	"featureContainer": "HQ2LBg2Mb0WAtxsS90KC6",
+	"stepContainer": "_3A8zI4nCccE-K4ecRf0n9P"
 };
+
+/***/ }),
+
+/***/ "./node_modules/typings-for-css-modules-loader/lib/index.js??ref--6-1!./node_modules/sass-loader/lib/loader.js!./src/components/featureBlock/FeatureBlock.scss":
+/*!************************************************************************************************************************************************************!*\
+  !*** ./node_modules/typings-for-css-modules-loader/lib??ref--6-1!./node_modules/sass-loader/lib/loader.js!./src/components/featureBlock/FeatureBlock.scss ***!
+  \************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".zpr9g2MyO2NJdXGr8k7Qe {\n  width: 100px;\n  height: 100px;\n  border: 1px solid #ececec;\n  padding: 5px;\n  margin: 10px;\n  display: inline-block;\n  cursor: pointer; }\n\n.zpr9g2MyO2NJdXGr8k7Qe:hover {\n  background-color: #eeeeee; }\n", ""]);
+
+// exports
+exports.locals = {
+	"featureBlock": "zpr9g2MyO2NJdXGr8k7Qe"
+};
+
+/***/ }),
+
+/***/ "./node_modules/typings-for-css-modules-loader/lib/index.js??ref--6-1!./node_modules/sass-loader/lib/loader.js!./src/components/work/Work.scss":
+/*!********************************************************************************************************************************************!*\
+  !*** ./node_modules/typings-for-css-modules-loader/lib??ref--6-1!./node_modules/sass-loader/lib/loader.js!./src/components/work/Work.scss ***!
+  \********************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".rARvUsGRhuV89Dci3ebWK {\n  width: 100%; }\n\n._2_z-7RZsXXTYY22A_quwdv {\n  border: none;\n  background-color: #ececec;\n  color: #000; }\n\n.yIC3gmVv8bC4zRePNKK0C {\n  width: 100%; }\n", ""]);
+
+// exports
+exports.locals = {
+	"container": "rARvUsGRhuV89Dci3ebWK",
+	"button": "_2_z-7RZsXXTYY22A_quwdv",
+	"maxWidth": "yIC3gmVv8bC4zRePNKK0C"
+};
+
+/***/ }),
+
+/***/ "./src/DataAccess.ts":
+/*!***************************!*\
+  !*** ./src/DataAccess.ts ***!
+  \***************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var DataAccess = /** @class */ (function () {
+    function DataAccess(apiRoot) {
+        this.apiRoot = apiRoot;
+    }
+    DataAccess.prototype.uploadFile = function (file) {
+    };
+    return DataAccess;
+}());
+exports.default = DataAccess;
+
 
 /***/ }),
 
@@ -718,6 +789,8 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "react");
 var style = __webpack_require__(/*! ./Hello.scss */ "./src/components/Hello.scss");
+var FeatureBlock_1 = __webpack_require__(/*! ./featureBlock/FeatureBlock */ "./src/components/featureBlock/FeatureBlock.tsx");
+var Work_1 = __webpack_require__(/*! ./work/Work */ "./src/components/work/Work.tsx");
 var Hello = /** @class */ (function (_super) {
     __extends(Hello, _super);
     function Hello() {
@@ -725,13 +798,203 @@ var Hello = /** @class */ (function (_super) {
     }
     Hello.prototype.render = function () {
         return React.createElement("div", { className: style.stuff },
-            "This is where all the magic single page goodies are going to be. Using ",
-            this.props.framework,
-            "!");
+            React.createElement("div", { className: style.landing },
+                React.createElement("h1", { className: style.title }, "Variant prioritization")),
+            this.props.isLoggedIn ?
+                React.createElement(Work_1.Work, null) :
+                React.createElement("div", null,
+                    React.createElement("div", { className: style.featureContainer },
+                        React.createElement(FeatureBlock_1.FeatureBlock, { text: "quickly annotate" }),
+                        React.createElement(FeatureBlock_1.FeatureBlock, { text: "automatically prioritize" }),
+                        React.createElement(FeatureBlock_1.FeatureBlock, { text: "custom vizualizations" }),
+                        React.createElement(FeatureBlock_1.FeatureBlock, { text: "scientific papers" })),
+                    React.createElement("div", { className: style.stepContainer },
+                        React.createElement("h3", null, "4 easy steps:"),
+                        React.createElement("li", null, "register"),
+                        React.createElement("li", null, "fill in details"),
+                        React.createElement("li", null, "upload VCF"),
+                        React.createElement("li", null, "manage results"))));
     };
     return Hello;
 }(React.Component));
 exports.Hello = Hello;
+
+
+/***/ }),
+
+/***/ "./src/components/featureBlock/FeatureBlock.scss":
+/*!*******************************************************!*\
+  !*** ./src/components/featureBlock/FeatureBlock.scss ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../node_modules/typings-for-css-modules-loader/lib??ref--6-1!../../../node_modules/sass-loader/lib/loader.js!./FeatureBlock.scss */ "./node_modules/typings-for-css-modules-loader/lib/index.js??ref--6-1!./node_modules/sass-loader/lib/loader.js!./src/components/featureBlock/FeatureBlock.scss");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./src/components/featureBlock/FeatureBlock.tsx":
+/*!******************************************************!*\
+  !*** ./src/components/featureBlock/FeatureBlock.tsx ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(/*! react */ "react");
+var style = __webpack_require__(/*! ./FeatureBlock.scss */ "./src/components/featureBlock/FeatureBlock.scss");
+var FeatureBlock = /** @class */ (function (_super) {
+    __extends(FeatureBlock, _super);
+    function FeatureBlock() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    FeatureBlock.prototype.render = function () {
+        return React.createElement("div", { className: style.featureBlock }, this.props.text);
+    };
+    return FeatureBlock;
+}(React.Component));
+exports.FeatureBlock = FeatureBlock;
+
+
+/***/ }),
+
+/***/ "./src/components/work/Work.scss":
+/*!***************************************!*\
+  !*** ./src/components/work/Work.scss ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../node_modules/typings-for-css-modules-loader/lib??ref--6-1!../../../node_modules/sass-loader/lib/loader.js!./Work.scss */ "./node_modules/typings-for-css-modules-loader/lib/index.js??ref--6-1!./node_modules/sass-loader/lib/loader.js!./src/components/work/Work.scss");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./src/components/work/Work.tsx":
+/*!**************************************!*\
+  !*** ./src/components/work/Work.tsx ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(/*! react */ "react");
+var style = __webpack_require__(/*! ./Work.scss */ "./src/components/work/Work.scss");
+var DataAccess_1 = __webpack_require__(/*! ../../DataAccess */ "./src/DataAccess.ts");
+var Transmission;
+(function (Transmission) {
+    Transmission[Transmission["Heterozygous"] = 0] = "Heterozygous";
+    Transmission[Transmission["Homozygous"] = 1] = "Homozygous";
+})(Transmission = exports.Transmission || (exports.Transmission = {}));
+var Work = /** @class */ (function (_super) {
+    __extends(Work, _super);
+    function Work(props) {
+        var _this = _super.call(this, props) || this;
+        _this.state = {
+            keywords: '',
+            transmission: Transmission.Heterozygous,
+            uploadedFile: null
+        };
+        _this.da = new DataAccess_1.default('localhost');
+        return _this;
+    }
+    Work.prototype.render = function () {
+        return React.createElement("div", { className: style.container },
+            React.createElement("p", null, "What's the suspected illness? keywords? marks?"),
+            React.createElement("input", { className: style.maxWidth, type: 'text', onChange: this.onKeywordInputChange.bind(this) }),
+            React.createElement("p", null, "Transmission model"),
+            React.createElement("select", { className: style.maxWidth, onChange: this.transmissionChange.bind(this) },
+                React.createElement("option", null, "Heterozygous"),
+                React.createElement("option", null, "Homozygous")),
+            React.createElement("p", null, "VCF upload:"),
+            React.createElement("input", { className: style.maxWidth, type: 'file', onChange: this.onFileUploaded.bind(this) }),
+            React.createElement("input", { type: 'button', value: 'submit query', onClick: this.onSubmit.bind(this) }));
+    };
+    Work.prototype.onKeywordInputChange = function (e) {
+        this.setState({
+            keywords: e.target.value
+        });
+    };
+    Work.prototype.onFileUploaded = function (e) {
+        if (e.target.files.length < 1) {
+            return;
+        }
+        this.setState({
+            uploadedFile: e.target.files[0]
+        });
+    };
+    Work.prototype.transmissionChange = function (e) {
+        this.setState({
+            transmission: e.target.value
+        });
+    };
+    Work.prototype.onSubmit = function () {
+        this.da.uploadFile(this.state.uploadedFile);
+    };
+    return Work;
+}(React.Component));
+exports.Work = Work;
 
 
 /***/ }),
@@ -749,7 +1012,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "react");
 var ReactDOM = __webpack_require__(/*! react-dom */ "react-dom");
 var Hello_1 = __webpack_require__(/*! ./components/Hello */ "./src/components/Hello.tsx");
-ReactDOM.render(React.createElement(Hello_1.Hello, { compiler: "TypeScript", framework: "React" }), document.getElementById("example"));
+var isLoggedIn = window.isLoggedIn;
+ReactDOM.render(React.createElement(Hello_1.Hello, { isLoggedIn: isLoggedIn }), document.getElementById("example"));
 
 
 /***/ }),

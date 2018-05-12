@@ -3,7 +3,8 @@ import * as ReactDOM from "react-dom";
 
 import { Hello } from "./components/Hello";
 
+let isLoggedIn: boolean = (window as any).isLoggedIn;
 ReactDOM.render(
-    <Hello compiler="TypeScript" framework="React" />,
+    <Hello isLoggedIn={isLoggedIn} />,
     document.getElementById("example")
 );
