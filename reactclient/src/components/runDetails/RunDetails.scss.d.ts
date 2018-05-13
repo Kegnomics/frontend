@@ -9,3 +9,4 @@ export const outcome: string;
 export const highlight: string;
 export const chartContainer: string;
 export const leftContainer: string;
+export const clusterContainer: string;

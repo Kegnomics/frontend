@@ -15,13 +15,20 @@ export interface PublicationDAO {
     url: string;
 }
 
+export interface GeneCountsDAO {
+    count: number;
+    id: number;
+    gene: string;
+}
+
 export interface HistoryRunDAO {
     done: number;
     runId: number;
     submissionTime: string;
     variants: VariantDAO[];
     runname: string;
-    publications: PublicationDAO[]; 
+    publications: PublicationDAO[];
+    genecounts: GeneCountsDAO[]; 
 }
 
 export interface GenericServerData {
@@ -47,7 +54,8 @@ export default class DataAccess {
                     submissionTime: data.timestamp,
                     variants: data.variants,
                     runname: data.runname,
-                    publications: data.pubmedarticles
+                    publications: data.pubmedarticles,
+                    genecounts: data.genecounts
                 };
             });
         });
