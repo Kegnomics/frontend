@@ -87,13 +87,13 @@ export class Work extends React.Component<WorkProps, WorkState>{
                 {this.state.selectedRun ?
                     <div>
                         <div onClick={() => { this.setState({ selectedRun: null});}}>back</div>
-                        <HistoryRun isSelected={this.state.selectedRun && this.state.selectedRun.runId === this.state.selectedRun.runId} key={this.state.selectedRun.runId} clickHandler={this.selectRun.bind(this)} data={this.state.selectedRun} />
-                        <RunDetails key={this.state.selectedRun.runId} run={this.state.selectedRun} /> 
+                        <HistoryRun key={this.state.selectedRun.runId+'u'} isSelected={this.state.selectedRun && this.state.selectedRun.runId === this.state.selectedRun.runId} clickHandler={this.selectRun.bind(this)} data={this.state.selectedRun} />
+                        <RunDetails key={this.state.selectedRun.runId+'d'} run={this.state.selectedRun} /> 
                     </div> 
                     : <div>
-                        <div className={this.state.pendingRun ? style.visible : style.hidden}>you have runs in progress</div>
+                        <div className={style.progress + ' ' + (this.state.pendingRun ? style.visible : style.hidden)}>you have runs in progress</div>
                         {this.state.historicResults.map((result: HistoryRunDAO) => {
-                            return <HistoryRun isSelected={this.state.selectedRun && this.state.selectedRun.runId === result.runId} key={result.runId} clickHandler={this.selectRun.bind(this)} data={result} />   
+                            return <HistoryRun key={result.runId+'l'} isSelected={this.state.selectedRun && this.state.selectedRun.runId === result.runId} clickHandler={this.selectRun.bind(this)} data={result} />   
                         })}
                     </div>
                     }

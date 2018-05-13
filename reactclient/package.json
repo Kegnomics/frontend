@@ -20,6 +20,8 @@
   "dependencies": {
     "@types/react": "^16.3.5",
     "@types/react-dom": "^16.0.4",
+    "echarts": "^4.1.0",
+    "echarts-for-react": "^2.0.8",
     "node-sass": "^4.8.3",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
