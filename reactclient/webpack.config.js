@@ -37,6 +37,20 @@ module.exports = {
                   },
                   { loader: 'sass-loader'}
                 ]
+            },
+            {
+                test: /\.css?$/,
+                use: [
+                  {loader: 'style-loader'},
+                //   {
+                //     loader: 'typings-for-css-modules-loader',
+                //     options: {
+                //       modules: true,
+                //       namedExport: true
+                //     }
+                //   },
+                  { loader: 'css-loader'}
+                ]
               }
         ]
     },

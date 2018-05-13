@@ -16,10 +16,10 @@ export class Hello extends React.Component<HelloProps, {}> {
         <Work /> : 
         <div>
             <div className={style.featureContainer}>
-                <FeatureBlock text="quickly annotate" />
-                <FeatureBlock text="automatically prioritize" />
-                <FeatureBlock text="custom vizualizations" />
-                <FeatureBlock text="scientific papers" />
+                <FeatureBlock className={style.featureBlockCol1} text="quickly annotate" />
+                <FeatureBlock className={style.featureBlockCol2} text="automatically prioritize" />
+                <FeatureBlock className={style.featureBlockCol3} text="custom vizualizations" />
+                <FeatureBlock className={style.featureBlockCol4} text="scientific papers" />
             </div>
             <div className={style.stepContainer}>
             <h3>4 easy steps:</h3>

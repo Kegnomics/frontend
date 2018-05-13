@@ -45,7 +45,8 @@ export class Work extends React.Component<WorkProps, WorkState>{
             runName: '',
             isWorking: false
         };
-        this.da = new DataAccess('http://10.10.1.31:5000/api/');
+        //this.da = new DataAccess('http://10.10.1.31:5000/api/');
+        this.da = new DataAccess('http://localhost:5000/api/');
         this.da.getHistoricRuns().then((runs: HistoryRunDAO[]) => {
             this.setState({
                 historicResults: runs.filter((run: HistoryRunDAO) => {return run.done === 1})
@@ -77,7 +78,7 @@ export class Work extends React.Component<WorkProps, WorkState>{
                 <input className={style.keywordInput} type='text' onChange={this.runNameChanged.bind(this)} />
                 <div>
                     <div className={style.submitButton} onClick={this.onSubmit.bind(this)}>submit</div>
-                    <img className={ style.spinner + ' ' + (this.state.isWorking ? style.visibleInline : style.hidden)} src='http://localhost:8080/loading_spinner.gif'/>
+                    <img className={ style.spinner + ' ' + (this.state.isWorking ? style.visibleInline : style.hidden)} src='http://localhost:9000/loading_spinner.gif'/>
                 </div>
             </div>
             <div className={this.state.showResults ? style.visible : style.hidden}>
