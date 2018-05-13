@@ -7,7 +7,7 @@
     width: calc(100% + 30px);
     height: 200px;
     margin: -20px -15px 0 -15px;
-    background-image: url('http://localhost:8080/preview.jpg');
+    background-image: url('http://localhost:9000/preview.jpg');
     background-size: cover;
     position: relative;
 }
@@ -33,4 +33,21 @@
     .landing {
         height: 100px;
     }
+}
+
+
+.featureBlockCol1 {
+    background-color: #6ed3cf;
+}
+
+.featureBlockCol2 {
+    background-color: #9068be;
+}
+
+.featureBlockCol3 {
+    // background-color:  #e1e8f0;
+    background-color: #4da5f4;
+}
+.featureBlockCol4 {
+    background-color: #e62739;
 }

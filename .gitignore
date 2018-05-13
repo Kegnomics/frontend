@@ -1,3 +1,4 @@
 reactclient/dist
 reactclient/node_modules
+.env
 site/node_modules

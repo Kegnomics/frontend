@@ -1,11 +1,16 @@
+$margin: 10px;
+
 .featureBlock {
-    width: 100px;
-    height: 100px;
+    width: calc(25% - 20px);
+    height: 70px;
     border: 1px solid #ececec;
     padding: 5px;
-    margin: 10px;
+    margin: $margin;
     display: inline-block;
     cursor: pointer;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 15px;
 }
 
 .featureBlock:hover {
