@@ -26,6 +26,7 @@ export interface WorkState {
     selectedRun: HistoryRunDAO;
     runName: string;
     isWorking: boolean;
+    pendingRun: boolean;
 }
 
 export class Work extends React.Component<WorkProps, WorkState>{
@@ -43,13 +44,14 @@ export class Work extends React.Component<WorkProps, WorkState>{
             historicResults: [],
             selectedRun: null,
             runName: '',
-            isWorking: false
+            isWorking: false,
+            pendingRun: false
         };
         //this.da = new DataAccess('http://10.10.1.31:5000/api/');
         this.da = new DataAccess('http://localhost:5000/api/');
         this.da.getHistoricRuns().then((runs: HistoryRunDAO[]) => {
             this.setState({
-                historicResults: runs.filter((run: HistoryRunDAO) => {return run.done === 1})
+                historicResults: runs.reverse()
             });
         });
     }
@@ -83,10 +85,19 @@ export class Work extends React.Component<WorkProps, WorkState>{
             </div>
             <div className={this.state.showResults ? style.visible : style.hidden}>
             <h4>previous runs:</h4>
-                {this.state.historicResults.reverse().map((result: HistoryRunDAO) => {
-                    return <HistoryRun key={result.runId} clickHandler={this.selectRun.bind(this)} data={result} />   
-                })}
-                {this.state.selectedRun ? <RunDetails run={this.state.selectedRun} /> : ''}
+                {this.state.selectedRun ?
+                    <div>
+                        <div onClick={() => { this.setState({ selectedRun: null});}}>back</div>
+                        <HistoryRun isSelected={this.state.selectedRun && this.state.selectedRun.runId === this.state.selectedRun.runId} key={this.state.selectedRun.runId} clickHandler={this.selectRun.bind(this)} data={this.state.selectedRun} />
+                        <RunDetails key={this.state.selectedRun.runId} run={this.state.selectedRun} /> 
+                    </div> 
+                    : <div>
+                        <div className={this.state.pendingRun ? style.visible : style.hidden}>you have runs in progress</div>
+                        {this.state.historicResults.map((result: HistoryRunDAO) => {
+                            return <HistoryRun isSelected={this.state.selectedRun && this.state.selectedRun.runId === result.runId} key={result.runId} clickHandler={this.selectRun.bind(this)} data={result} />   
+                        })}
+                    </div>
+                    }
             </div>
         </div>
     }
@@ -121,7 +132,8 @@ export class Work extends React.Component<WorkProps, WorkState>{
 
     private onSubmit(): void {
         this.setState({
-            isWorking: true
+            isWorking: true,
+            pendingRun: true
         });
         this.da.uploadStuff(this.state.uploadedFile, this.state.keywords, this.state.runName).then((data: FileSubmissionData)=> {
             this.interval = window.setInterval(() => {this.pollForJobDone(data.job_id)}, 10000);
@@ -156,7 +168,8 @@ export class Work extends React.Component<WorkProps, WorkState>{
                 window.clearInterval(this.interval);
                 this.da.getHistoricRuns().then((runs: HistoryRunDAO[]) => {
                     this.setState({
-                        historicResults: runs
+                        historicResults: runs.reverse(),
+                        pendingRun: false
                     });
                 });
             }

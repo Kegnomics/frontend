@@ -19688,7 +19688,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "._3H8YDT3TVx9l4v5H3O8DR9 {\n  width: 100%; }\n\n._1YiWs_kKe-iPjw_268FNzz {\n  cursor: pointer;\n  color: #2f4f4f; }\n\n._3KaRwNOgHtTImkG46ARUfQ {\n  padding: 5px;\n  font-size: 16px; }\n\n._1gvPbChxViCT7d3HkpsvtY {\n  font-size: 12px;\n  color: #808080; }\n\n._2aWpxtYl7RMveIealMLXb5 {\n  width: 100%; }\n\n._2JNRc9LedOzmIUmTigJo_H {\n  border-left: 5px solid #2f4f4f; }\n", ""]);
+exports.push([module.i, "._3H8YDT3TVx9l4v5H3O8DR9 {\n  width: 100%; }\n\n._1YiWs_kKe-iPjw_268FNzz {\n  cursor: pointer;\n  color: #2f4f4f; }\n\n._3KaRwNOgHtTImkG46ARUfQ {\n  padding: 5px;\n  font-size: 16px; }\n\n._1gvPbChxViCT7d3HkpsvtY {\n  font-size: 12px;\n  color: #808080; }\n\n._2aWpxtYl7RMveIealMLXb5 {\n  width: 100%; }\n\n._2JNRc9LedOzmIUmTigJo_H {\n  padding-left: 10px; }\n\n.q5Px_sbD2ze8kkRM0kK7I {\n  border-left: 5px solid #2f4f4f; }\n\n._3qvdX1biLAs39_LU0OdyS1 {\n  border-left: 5px solid #9f0000; }\n\n._1BwIuMZZPzZcTrU_--dr2T {\n  background-color: yellow; }\n", ""]);
 
 // exports
 exports.locals = {
@@ -19697,7 +19697,10 @@ exports.locals = {
 	"detailsSpan": "_3KaRwNOgHtTImkG46ARUfQ",
 	"dateSpan": "_1gvPbChxViCT7d3HkpsvtY",
 	"historyRun": "_2aWpxtYl7RMveIealMLXb5",
-	"historyContainer": "_2JNRc9LedOzmIUmTigJo_H"
+	"historyContainer": "_2JNRc9LedOzmIUmTigJo_H",
+	"historyContainerDone": "q5Px_sbD2ze8kkRM0kK7I",
+	"historyContainerPending": "_3qvdX1biLAs39_LU0OdyS1",
+	"isSelected": "_1BwIuMZZPzZcTrU_--dr2T"
 };
 
 /***/ }),
@@ -19714,11 +19717,16 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".euy9HKaFYP0XQfo_yR0WJ {\n  width: 100%; }\n", ""]);
+exports.push([module.i, ".euy9HKaFYP0XQfo_yR0WJ {\n  width: 100%;\n  display: flex; }\n\n._3kc9Am0ANTAV_LFCdzbP9P {\n  width: 30%;\n  display: inline-block; }\n\n._2sdBQQBMsgZkQeb8addUe3 {\n  width: 70%;\n  display: inline-block; }\n\n._2CFSgk44r5u11xLlaHNTLk {\n  max-height: 80px;\n  overflow: hidden;\n  font-size: 12px; }\n\n._2sdBQQBMsgZkQeb8addUe3 {\n  width: 100%; }\n\n._2D7FrOFGHa696ZjFY8A3JM {\n  width: 30%;\n  display: inline-block; }\n\n.muypdpLKvTFGXftkP2-8s {\n  width: 30%;\n  display: inline-block; }\n\n@media (max-width: 768px) {\n  .euy9HKaFYP0XQfo_yR0WJ {\n    width: 100%;\n    display: block; }\n  ._3kc9Am0ANTAV_LFCdzbP9P {\n    width: 100%;\n    display: inline-block; }\n  ._2sdBQQBMsgZkQeb8addUe3 {\n    width: 100%;\n    display: inline-block; } }\n", ""]);
 
 // exports
 exports.locals = {
-	"details": "euy9HKaFYP0XQfo_yR0WJ"
+	"details": "euy9HKaFYP0XQfo_yR0WJ",
+	"articleContainer": "_3kc9Am0ANTAV_LFCdzbP9P",
+	"variantContainer": "_2sdBQQBMsgZkQeb8addUe3",
+	"abstract": "_2CFSgk44r5u11xLlaHNTLk",
+	"identification": "_2D7FrOFGHa696ZjFY8A3JM",
+	"prediction": "muypdpLKvTFGXftkP2-8s"
 };
 
 /***/ }),
@@ -19781,7 +19789,8 @@ var DataAccess = /** @class */ (function () {
                     runId: data.id,
                     submissionTime: data.timestamp,
                     variants: data.variants,
-                    runname: data.runname
+                    runname: data.runname,
+                    publications: data.pubmedarticles
                 };
             });
         });
@@ -20038,10 +20047,10 @@ var HistoryRun = /** @class */ (function (_super) {
     }
     HistoryRun.prototype.render = function () {
         var _this = this;
-        return React.createElement("div", { className: style.smtn },
-            React.createElement("div", { className: style.historyContainer },
+        return React.createElement("div", { className: style.smtn + ' ' + (this.props.isSelected ? style.isSelected : '') },
+            React.createElement("div", { className: style.historyContainer + ' ' + (this.props.data.done === 0 ? style.historyContainerPending : style.historyContainerDone) },
                 React.createElement("span", { className: style.detailsSpan }, this.props.data.runId),
-                React.createElement("span", { className: style.nameSpan + ' ' + style.detailsSpan, onClick: function () { _this.props.clickHandler(_this.props.data.runId); } }, this.props.data.runname),
+                React.createElement("span", { className: style.nameSpan + ' ' + style.detailsSpan, onClick: function () { !_this.props.isSelected && _this.props.clickHandler(_this.props.data.runId); } }, this.props.data.runname),
                 React.createElement("p", { className: style.dateSpan }, this.props.data.submissionTime)));
     };
     return HistoryRun;
@@ -20110,17 +20119,32 @@ var RunDetails = /** @class */ (function (_super) {
     }
     RunDetails.prototype.render = function () {
         return React.createElement("div", { className: style.details },
-            React.createElement("div", null, "variant list"),
-            this.props.run && this.props.run.variants.map(function (variant) {
-                return React.createElement("div", null,
-                    variant.id,
-                    "|",
-                    variant.locus,
-                    "|",
-                    variant.phenotype);
-            }),
-            React.createElement("div", null, "publication list"),
-            React.createElement("div", null, "charts"));
+            React.createElement("div", { className: style.variantContainer },
+                React.createElement("h4", null, "variant list"),
+                this.props.run && this.props.run.variants && this.props.run.variants.map(function (variant) {
+                    return React.createElement("div", { className: style.variantContainer },
+                        React.createElement("div", { className: style.identification },
+                            React.createElement("div", null, "identification:"),
+                            React.createElement("span", null, variant.locus),
+                            React.createElement("span", null,
+                                " ",
+                                variant.rsid)),
+                        React.createElement("div", { className: style.prediction },
+                            React.createElement("div", null, "prediction:"),
+                            React.createElement("span", null,
+                                "sift: ",
+                                variant.sift),
+                            React.createElement("span", null,
+                                " polyphen: ",
+                                variant.polyphen)));
+                })),
+            React.createElement("div", { className: style.articleContainer },
+                React.createElement("h4", null, "PubMed articles:"),
+                this.props.run && this.props.run.publications && this.props.run.publications.map(function (publication) {
+                    return React.createElement("div", null,
+                        React.createElement("div", { className: style.abstract }, publication.abstract),
+                        React.createElement("a", { target: '_blank', href: publication.url }, "PubMed"));
+                })));
     };
     return RunDetails;
 }(React.Component));
@@ -20201,12 +20225,13 @@ var Work = /** @class */ (function (_super) {
             historicResults: [],
             selectedRun: null,
             runName: '',
-            isWorking: false
+            isWorking: false,
+            pendingRun: false
         };
         _this.da = new DataAccess_1.default('http://10.10.1.31:5000/api/');
         _this.da.getHistoricRuns().then(function (runs) {
             _this.setState({
-                historicResults: runs.filter(function (run) { return run.done === 1; })
+                historicResults: runs.reverse()
             });
         });
         return _this;
@@ -20235,10 +20260,16 @@ var Work = /** @class */ (function (_super) {
                     React.createElement("img", { className: style.spinner + ' ' + (this.state.isWorking ? style.visibleInline : style.hidden), src: 'http://localhost:8080/loading_spinner.gif' }))),
             React.createElement("div", { className: this.state.showResults ? style.visible : style.hidden },
                 React.createElement("h4", null, "previous runs:"),
-                this.state.historicResults.reverse().map(function (result) {
-                    return React.createElement(HistoryRun_1.HistoryRun, { key: result.runId, clickHandler: _this.selectRun.bind(_this), data: result });
-                }),
-                this.state.selectedRun ? React.createElement(RunDetails_1.RunDetails, { run: this.state.selectedRun }) : ''));
+                this.state.selectedRun ?
+                    React.createElement("div", null,
+                        React.createElement("div", { onClick: function () { _this.setState({ selectedRun: null }); } }, "back"),
+                        React.createElement(HistoryRun_1.HistoryRun, { isSelected: this.state.selectedRun && this.state.selectedRun.runId === this.state.selectedRun.runId, key: this.state.selectedRun.runId, clickHandler: this.selectRun.bind(this), data: this.state.selectedRun }),
+                        React.createElement(RunDetails_1.RunDetails, { key: this.state.selectedRun.runId, run: this.state.selectedRun }))
+                    : React.createElement("div", null,
+                        React.createElement("div", { className: this.state.pendingRun ? style.visible : style.hidden }, "you have runs in progress"),
+                        this.state.historicResults.map(function (result) {
+                            return React.createElement(HistoryRun_1.HistoryRun, { isSelected: _this.state.selectedRun && _this.state.selectedRun.runId === result.runId, key: result.runId, clickHandler: _this.selectRun.bind(_this), data: result });
+                        }))));
     };
     Work.prototype.onKeywordInputChange = function (e) {
         this.setState({
@@ -20266,7 +20297,8 @@ var Work = /** @class */ (function (_super) {
     Work.prototype.onSubmit = function () {
         var _this = this;
         this.setState({
-            isWorking: true
+            isWorking: true,
+            pendingRun: true
         });
         this.da.uploadStuff(this.state.uploadedFile, this.state.keywords, this.state.runName).then(function (data) {
             _this.interval = window.setInterval(function () { _this.pollForJobDone(data.job_id); }, 10000);
@@ -20298,7 +20330,8 @@ var Work = /** @class */ (function (_super) {
                 window.clearInterval(_this.interval);
                 _this.da.getHistoricRuns().then(function (runs) {
                     _this.setState({
-                        historicResults: runs
+                        historicResults: runs.reverse(),
+                        pendingRun: false
                     });
                 });
             }
