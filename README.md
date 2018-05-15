@@ -1,16 +1,33 @@
-# Kegnomics Frontend 
+# PrioriVar - Kegnomics team frontend
 
+Base site wrapper from:  https://github.com/sahat/hackathon-starter
 
-Taken from:  https://github.com/sahat/hackathon-starter
+Making the lives of doctors easier through automatic insights from genetic analysis results.
 
-## 1. Installation
+# Table of Contents:
+
+* Screenshots
+* Installation
+* Configuration
+
+## 1. Screenshots
+
+Main submission page:
+
+![Initial](img/initial.png)
+
+Post-processing results:
+
+![Results](img/post-run.png)
+
+## 2. Installation
 
 First run npm install in both folders, `site` and `reactclient`.
 
 Then start the server using `npm start` in `site` and `./node_modules/.bin/webpack` in `reactclient`.
 
 
-## 2. Configuration
+## 3. Configuration
 
 In order to configure the URL's the service is pointing to, you have a few options
 
@@ -22,3 +39,5 @@ To start the server with modified variables, add the names to the run command. E
 ```
 API_URL=http://35.234.120.86:5000/api/ ./node_modules/.bin/webpack
 ```
+
+
