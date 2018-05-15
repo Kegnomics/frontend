@@ -3,12 +3,16 @@ import * as style from './RunDetails.scss';
 import { HistoryRunDAO, VariantDAO, PublicationDAO, GeneCountsDAO } from '../../DataAccess';
 import ReactEcharts from 'echarts-for-react';
 
+declare var API_URL: string;
+
 export interface RunDetailsProps {
     run: HistoryRunDAO;
 }
 
 export class RunDetails extends React.Component<RunDetailsProps, {}> {
     render() {
+        let lastClusterApi = API_URL + 'getLastCluster';
+
         return <div className={style.details}>
             <div className={style.variantContainer}>
                 <div><h4>filtered variants</h4>
@@ -47,7 +51,7 @@ export class RunDetails extends React.Component<RunDetailsProps, {}> {
                 </div>
                 <div>
                     <h4>clustering based on filtered/nonfiltered genes:</h4>
-                    <img className={style.clusterContainer} src='http://10.10.1.31:5000/api/getLastCluster'/>
+                    <img className={style.clusterContainer} src={lastClusterApi}/>
                 </div>
             </div>
             <div className={style.articleContainer}><h4>PubMed articles:</h4>
