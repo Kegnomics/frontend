@@ -22,11 +22,26 @@
     display: inline-block;
     width: 100%;
     margin-top: 20px;
+    text-align: center;
 }
 
 .stepContainer {
     width: 100%;
     display: block;
+    position: absolute;
+}
+
+.stepContainerHidden {
+    width: 100%;
+    display: block;
+    visibility: hidden;
+    position: absolute;
+}
+
+.parentContainer {
+    display: inline-block;
+    width: 100%;
+    margin-left: 20px;
 }
 
 @media (max-width: 550px) {
@@ -49,5 +64,5 @@
     background-color: #4da5f4;
 }
 .featureBlockCol4 {
-    background-color: #e62739;
+    background-color: #e46673e5;
 }
