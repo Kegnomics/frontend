@@ -4,6 +4,9 @@ import DataAccess, { HistoryRunDAO } from '../../DataAccess';
 import { HistoryRun } from '../historyRun/HistoryRun';
 import { RunDetails } from '../runDetails/RunDetails';
 
+declare var API_URL: string;
+declare var FRONTEND_URL: string;
+
 export interface FileSubmissionData {
     job_id: number;
 }
@@ -47,8 +50,8 @@ export class Work extends React.Component<WorkProps, WorkState>{
             isWorking: false,
             pendingRun: false
         };
-        this.da = new DataAccess('http://10.10.1.31:5000/api/');
-        // this.da = new DataAccess('http://localhost:5000/api/');
+        console.log(API_URL);
+        this.da = new DataAccess(API_URL);
         this.da.getHistoricRuns().then((runs: HistoryRunDAO[]) => {
             this.setState({
                 historicResults: runs.reverse()
@@ -57,7 +60,7 @@ export class Work extends React.Component<WorkProps, WorkState>{
     }
 
     public render() {
-
+        let spinnerUrl = FRONTEND_URL + '/loading_spinner.gif';
         return <div className={style.container}>
             <div>
                 <div className={this.state.showResults ? style.button : style.button + ' ' + style.selected } onClick={this.showNewRun.bind(this)}>run</div>
@@ -80,7 +83,7 @@ export class Work extends React.Component<WorkProps, WorkState>{
                 <input className={style.keywordInput} type='text' onChange={this.runNameChanged.bind(this)} />
                 <div>
                     <div className={style.submitButton} onClick={this.onSubmit.bind(this)}>submit</div>
-                    <img className={ style.spinner + ' ' + (this.state.isWorking ? style.visibleInline : style.hidden)} src='http://localhost:8080/loading_spinner.gif'/>
+                    <img className={ style.spinner + ' ' + (this.state.isWorking ? style.visibleInline : style.hidden)} src={spinnerUrl} />
                 </div>
             </div>
             <div className={this.state.showResults ? style.visible : style.hidden}>

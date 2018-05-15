@@ -1,4 +1,19 @@
 var path = require('path');
+var webpack = require('webpack');
+var process = require('process');
+
+
+
+// Config values here
+let FRONTEND_URL = JSON.stringify(process.env.FRONTEND_URL) || JSON.stringify("http://localhost:9000/");
+let API_URL = JSON.stringify(process.env.API_URL) ||  JSON.stringify("http://localhost:5000/api/");
+let PRODUCTION = JSON.stringify(process.env.PRODUCTION) ||  JSON.stringify(false);
+
+let definePlugin = new webpack.DefinePlugin({
+    PRODUCTION: PRODUCTION,
+    API_URL: API_URL,
+    FRONTEND_URL: FRONTEND_URL
+  });
 
 module.exports = {
     entry: "./src/index.tsx",
@@ -35,7 +50,12 @@ module.exports = {
                       namedExport: true
                     }
                   },
-                  { loader: 'sass-loader'}
+                  { 
+                      loader: 'sass-loader',
+                      options: {
+                        data : "$frontendUrl: " + FRONTEND_URL + "; "
+                      }
+                  }
                 ]
             },
             {
@@ -54,4 +74,7 @@ module.exports = {
               }
         ]
     },
+    plugins: [
+        definePlugin
+    ]
 };
