@@ -39,5 +39,3 @@ To start the server with modified variables, add the names to the run command. E
 ```
 API_URL=http://35.234.120.86:5000/api/ ./node_modules/.bin/webpack
 ```
-
-

@@ -12,3 +12,4 @@ export const visibleInline: string;
 export const hidden: string;
 export const spinner: string;
 export const progress: string;
+export const inputLabel: string;

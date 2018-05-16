@@ -24,6 +24,7 @@ export interface WorkState {
     keywords: string;
     transmission: Transmission;
     uploadedFile: File;
+    fileUploadDialog: JSX.Element;
     showResults: boolean;
     historicResults: HistoryRunDAO[];
     selectedRun: HistoryRunDAO;
@@ -43,6 +44,7 @@ export class Work extends React.Component<WorkProps, WorkState>{
             keywords: '', 
             transmission: Transmission.Heterozygous, 
             uploadedFile: null,
+            fileUploadDialog: <div>Click to Upload File</div>,
             showResults: false,
             historicResults: [],
             selectedRun: null,
@@ -63,38 +65,38 @@ export class Work extends React.Component<WorkProps, WorkState>{
         let spinnerUrl = FRONTEND_URL + '/loading_spinner.gif';
         return <div className={style.container}>
             <div>
-                <div className={this.state.showResults ? style.button : style.button + ' ' + style.selected } onClick={this.showNewRun.bind(this)}>run</div>
-                <div className={!this.state.showResults ? style.button : style.button + ' ' + style.selected } onClick={this.showResults.bind(this)}>history</div>
+                <div className={this.state.showResults ? style.button : style.button + ' ' + style.selected } onClick={this.showNewRun.bind(this)}>Run</div>
+                <div className={!this.state.showResults ? style.button : style.button + ' ' + style.selected } onClick={this.showResults.bind(this)}>History</div>
             </div>
             <div className={style.workContainer + ' ' + (this.state.showResults ? style.hidden : style.visible)} >
-                <p>what's the suspected illness? keywords? marks?</p>
+                <p className={style.inputLabel}>What's the suspected illness? Keywords? Marks?</p>
                 <input className={style.keywordInput} type='text' onChange={this.onKeywordInputChange.bind(this)} />
-                <p>transmission model</p>
+                <p className={style.inputLabel}>Transmission Model</p>
                 <select className={style.keywordInput} onChange={this.transmissionChange.bind(this)}>
                     <option>Heterozygous</option>
                     <option>Homozygous</option>
                 </select>
-                <p>VCF upload:</p>
+                <p className={style.inputLabel}>VCF Upload:</p>
                 <div className={style.fileUpload}>
-                    <div className={style.fileUploadOverlay}>click to upload file</div>
+                    <div className={style.fileUploadOverlay}>{this.state.fileUploadDialog}</div>            
                     <input className={style.fileUploadControl} type='file' onChange={this.onFileUploaded.bind(this)} />
                 </div>
-                <p>name your run:</p>
+                <p className={style.inputLabel}>Name Your Run:</p>
                 <input className={style.keywordInput} type='text' onChange={this.runNameChanged.bind(this)} />
                 <div>
-                    <div className={style.submitButton} onClick={this.onSubmit.bind(this)}>submit</div>
+                    <div className={style.submitButton} onClick={this.onSubmit.bind(this)}>Submit</div>
                     <img className={ style.spinner + ' ' + (this.state.isWorking ? style.visibleInline : style.hidden)} src={spinnerUrl} />
                 </div>
             </div>
             <div className={this.state.showResults ? style.visible : style.hidden}>
-            <h4>previous runs:</h4>
                 {this.state.selectedRun ?
                     <div>
-                        <div onClick={() => { this.setState({ selectedRun: null});}}>back</div>
+                        <div onClick={() => { this.setState({ selectedRun: null});}} className={style.submitButton}> Back</div>
                         <HistoryRun key={this.state.selectedRun.runId+'u'} isSelected={this.state.selectedRun && this.state.selectedRun.runId === this.state.selectedRun.runId} clickHandler={this.selectRun.bind(this)} data={this.state.selectedRun} />
                         <RunDetails key={this.state.selectedRun.runId+'d'} run={this.state.selectedRun} /> 
                     </div> 
                     : <div>
+                        <h4 className={style.inputLabel}>Previous runs:</h4>
                         <div className={style.progress + ' ' + (this.state.pendingRun ? style.visible : style.hidden)}>you have runs in progress</div>
                         {this.state.historicResults.map((result: HistoryRunDAO) => {
                             return <HistoryRun key={result.runId+'l'} isSelected={this.state.selectedRun && this.state.selectedRun.runId === result.runId} clickHandler={this.selectRun.bind(this)} data={result} />   
@@ -116,8 +118,13 @@ export class Work extends React.Component<WorkProps, WorkState>{
             return;
         }
 
+        let targetFile = e.target.files[0];
+        let fileUploadPrompt = <div> Selected File:  <b>{targetFile.name}</b>. Click to select another file. </div>
+
+        console.log(targetFile);
         this.setState({
-            uploadedFile: e.target.files[0]
+            uploadedFile: targetFile,
+            fileUploadDialog: fileUploadPrompt
         });
     }
 

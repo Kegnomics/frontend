@@ -15,7 +15,7 @@ export class RunDetails extends React.Component<RunDetailsProps, {}> {
 
         return <div className={style.details}>
             <div className={style.variantContainer}>
-                <div><h4>filtered variants</h4>
+                <div><h4 className={style.sectionLabel}>Filtered Variants</h4>
                     {this.props.run && this.props.run.variants && this.props.run.variants.map((variant: VariantDAO) => {
                         let ensemblShards: string[] = variant.locus.split(',');
                         let chr: string = ensemblShards[0].slice(3);
@@ -29,14 +29,18 @@ export class RunDetails extends React.Component<RunDetailsProps, {}> {
                                     variant.rsid.slice(2) : ''}> {variant.rsid}</a>
                             </div>
                             <div className={style.prediction}>
-                                <span>sift: {variant.sift}</span>
-                                <span> polyphen: {variant.polyphen}</span>
+                                <div><span className={style.sectionLabel}>SIFT:</span> {variant.sift == null ? 'not provided' : variant.sift }</div>
+                                <div> <span className={style.sectionLabel}>Polyphen:</span> {variant.polyphen == null ? 'not provided' : variant.polyphen }</div>
                             </div>
                             <div className={style.outcome}>
-                                {variant.outcome ?
-                                    <div className={variant.outcome === 'pathogenic' ? style.highlight : ''}>{variant.outcome}</div> :
-                                    <div>unknown</div>}
-                                {variant.phenotype ? <div>({variant.phenotype})</div> : <div>-</div>}
+                                <div>
+                                <span className={style.sectionLabel}>Outcome: </span>{variant.outcome ?
+                                    <span className={variant.outcome === 'pathogenic' ? style.highlight : ''}>{variant.outcome}</span> :
+                                    <span>unknown</span>}
+                                </div>
+                                <div>
+                                 <span className={style.sectionLabel}>Phenotype: </span>{variant.phenotype ? <span>({variant.phenotype})</span> : <span>-</span>}
+                                </div>
                             </div>
                         </div>
                     })}
@@ -50,11 +54,11 @@ export class RunDetails extends React.Component<RunDetailsProps, {}> {
                     />
                 </div>
                 <div>
-                    <h4>clustering based on filtered/nonfiltered genes:</h4>
+                    <h4 className={style.sectionLabel}>Clustering based on filtered/nonfiltered genes:</h4>
                     <img className={style.clusterContainer} src={lastClusterApi}/>
                 </div>
             </div>
-            <div className={style.articleContainer}><h4>PubMed articles:</h4>
+            <div className={style.articleContainer}><h4 className={style.sectionLabel}>PubMed articles:</h4>
                 {this.props.run && this.props.run.publications && this.props.run.publications.map((publication: PublicationDAO) => {
                     return <div>
                         <div className={style.abstract}>{publication.abstract}</div>
@@ -70,7 +74,7 @@ export class RunDetails extends React.Component<RunDetailsProps, {}> {
         let genes: GeneCountsDAO[] = run.genecounts;
         return {
             title: {
-                text: 'top 5 most affected genes:'
+                text: 'Top 10 most affected genes:'
             },
             tooltip: {},
             xAxis: {
