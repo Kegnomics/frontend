@@ -24,7 +24,7 @@ export class Hello extends React.Component<HelloProps, {}> {
             <div ref='container' className={style.parentContainer}>
                 <div id="div1" className={style.stepContainer}>
                 <h3>Goals</h3>
-                    <p>In order to make the next step in disease treatment and prevention, our product will solve doctors' problem of choosing a mutation likely to be causing disease out of the hundreds or thousand of mutations each of us has by giving them a tool that does most of the filtering automatically.
+                    <li>In order to make the next step in disease treatment and prevention, our product will solve doctors' problem of choosing a mutation likely to be causing disease out of the hundreds or thousand of mutations each of us has by giving them a tool that does most of the filtering automatically.
 We will know if our product works when we see analysis of genetic predispositions and targeted treatments for patients in each specialized small doctor's office.</li>
                     <li>Custom filtering based on doctors' assumption</li>
                     <li>More than 90% variants filtered out</li>
@@ -41,7 +41,7 @@ We will know if our product works when we see analysis of genetic predisposition
                 </div>
                 <div id="div3" className={style.stepContainerHidden}>
                     <img src="/logo.png"/>
-                    <p> We are KegNOmics, a team of 5 aspiring drunk mutants that want to make genetic analysis easily accesible for doctors everywhere.</li>
+                    <p> We are KegNOmics, a team of 5 aspiring drunk mutants that want to make genetic analysis easily accesible for doctors everywhere.</p>
                 </div>
                 <div id="div4" className={style.stepContainerHidden}>
                 <h3>Technologies used for this awesome service</h3>

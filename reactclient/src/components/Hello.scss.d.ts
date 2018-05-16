@@ -3,6 +3,8 @@ export const landing: string;
 export const title: string;
 export const featureContainer: string;
 export const stepContainer: string;
+export const stepContainerHidden: string;
+export const parentContainer: string;
 export const featureBlockCol1: string;
 export const featureBlockCol2: string;
 export const featureBlockCol3: string;
